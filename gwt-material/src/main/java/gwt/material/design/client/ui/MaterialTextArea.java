@@ -24,6 +24,8 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.TextArea;
 import gwt.material.design.client.constants.CssName;
 import gwt.material.design.client.constants.InputType;
+import gwt.material.design.client.js.JsMaterial;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import static gwt.material.design.client.js.JsMaterialElement.$;
 
@@ -88,7 +90,7 @@ public class MaterialTextArea extends MaterialValueBox<String> {
     }
 
     protected void triggerAutoResize(Element element) {
-        Scheduler.get().scheduleDeferred(() -> $(element).trigger("autoresize", null));
+        Scheduler.get().scheduleDeferred(() -> JsMaterial.textareaAutoResize($(element)));
     }
 
     @Override
@@ -98,6 +100,7 @@ public class MaterialTextArea extends MaterialValueBox<String> {
         if (resizeRule.equals(ResizeRule.AUTO)) {
             triggerAutoResize();
         }
+
     }
 
     public void setResizeRule(ResizeRule resizeRule) {

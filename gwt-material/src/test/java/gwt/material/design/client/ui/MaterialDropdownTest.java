@@ -48,10 +48,10 @@ public class MaterialDropdownTest extends MaterialWidgetTest<MaterialDropDown> {
         MaterialDropDown dropdown = getWidget();
 
         // when / then
-        dropdown.setBelowOrigin(true);
-        assertTrue(dropdown.isBelowOrigin());
-        dropdown.setBelowOrigin(false);
-        assertFalse(dropdown.isBelowOrigin());
+        dropdown.setCoverTrigger(false);
+        assertFalse(dropdown.isCoverTrigger());
+        dropdown.setCoverTrigger(true);
+        assertTrue(dropdown.isCoverTrigger());
 
         dropdown.setConstrainWidth(true);
         assertTrue(dropdown.isConstrainWidth());

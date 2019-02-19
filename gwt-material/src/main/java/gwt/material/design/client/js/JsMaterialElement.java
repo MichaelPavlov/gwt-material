@@ -205,6 +205,9 @@ public class JsMaterialElement extends JQueryElement {
     @JsMethod
     public native void close();
 
+    @JsMethod
+    public native void recalculateDimensions();
+
     /**
      * Dismissable CollectionItem Component
      */
@@ -246,4 +249,7 @@ public class JsMaterialElement extends JQueryElement {
      */
     @JsMethod
     public native JsMaterialElement characterCounter();
+
+    @JsMethod
+    public native JQueryElement characterCounter(String actions);
 }

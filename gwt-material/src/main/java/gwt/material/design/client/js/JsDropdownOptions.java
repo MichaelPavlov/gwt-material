@@ -42,7 +42,7 @@ public class JsDropdownOptions {
     public int gutter;
 
     @JsProperty
-    public boolean belowOrigin;
+    public boolean coverTrigger;
 
     @JsProperty
     public String alignment;

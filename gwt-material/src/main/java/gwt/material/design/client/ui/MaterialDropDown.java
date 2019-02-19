@@ -94,7 +94,7 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
 
     public MaterialDropDown(Element activatorElement) {
         this();
-        activatorElement.setAttribute("data-activates", getId());
+        activatorElement.setAttribute(CssName.DATA_TARGET, getId());
         this.activatorElement = activatorElement;
     }
 
@@ -125,7 +125,7 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
             setId(uid);
             activatorElement = parent.getElement();
         } else if (activatorElement == null) {
-            activatorElement = DOMHelper.getElementByAttribute("data-activates", activator);
+            activatorElement = DOMHelper.getElementByAttribute(CssName.DATA_TARGET, activator);
         }
 
         $(activatorElement).dropdown(options);
@@ -149,6 +149,18 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
     public void reload() {
         unload();
         load();
+    }
+
+    public void open() {
+        $(getElement()).open();
+    }
+
+    public void close() {
+        $(getElement()).close();
+    }
+
+    public void recalculateDimensions() {
+        $(getElement()).recalculateDimensions();
     }
 
     @Override
@@ -234,14 +246,14 @@ public class MaterialDropDown extends UnorderedList implements JsLoader, HasSele
     }
 
     /**
-     * If true, the dropdown will show below the activator. Default: false
+     * If true, the dropdown will cover the activator. Default: true
      */
-    public void setBelowOrigin(boolean belowOrigin) {
-        options.belowOrigin = belowOrigin;
+    public void setCoverTrigger(boolean coverTrigger) {
+        options.coverTrigger = coverTrigger;
     }
 
-    public boolean isBelowOrigin() {
-        return options.belowOrigin;
+    public boolean isCoverTrigger() {
+        return options.coverTrigger;
     }
 
     /**

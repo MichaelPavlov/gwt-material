@@ -47,7 +47,10 @@ import gwt.material.design.client.events.*;
 import gwt.material.design.client.events.DragOverEvent;
 import gwt.material.design.client.events.DragStartEvent;
 import gwt.material.design.client.events.DropEvent;
+import gwt.material.design.client.js.JsMaterial;
 import gwt.material.design.client.ui.html.Label;
+
+import static gwt.material.design.client.js.JsMaterialElement.$;
 
 //@formatter:off
 
@@ -177,6 +180,11 @@ public class MaterialValueBox<T> extends AbstractValueWidget<T> implements HasCh
         if (text != null && !text.isEmpty()) {
             label.addStyleName(CssName.ACTIVE);
         }
+
+        if (counterMixin != null)
+            counterMixin.updateCounter();
+
+        JsMaterial.validate_field($(valueBoxBase.getElement()));
     }
 
     /**

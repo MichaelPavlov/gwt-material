@@ -34,10 +34,7 @@
  */
 package gwt.material.design.client.base;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.InputElement;
-import com.google.gwt.dom.client.LabelElement;
+import com.google.gwt.dom.client.*;
 import com.google.gwt.dom.client.Style.WhiteSpace;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.client.LeafValueEditor;
@@ -92,119 +89,26 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
             DirectionalTextHelper.DEFAULT_DIRECTION_ESTIMATOR;
 
     final DirectionalTextHelper directionalTextHelper;
-    InputElement inputElem;
-    LabelElement labelElem;
+
+    protected InputElement inputElem;
+    protected SpanElement spanElem;
     private LeafValueEditor<Boolean> editor;
     private boolean valueChangeHandlerInitialized;
 
-    /**
-     * Creates a check box with no label.
-     */
-    public BaseCheckBox() {
-        this(DOM.createSpan());
-        setStyleName(CssName.GWT_CHECKBOX);
-    }
+    protected BaseCheckBox(InputElement inputElem) {
+        super(DOM.createLabel());
 
-    /**
-     * Creates a check box with the specified text label.
-     *
-     * @param label the check box's label
-     */
-    public BaseCheckBox(SafeHtml label) {
-        this(label.asString(), true);
-    }
-
-    /**
-     * Creates a check box with the specified text label.
-     *
-     * @param label the check box's label
-     * @param dir   the text's direction. Note that {@code DEFAULT} means direction
-     *              should be inherited from the widget's parent element.
-     */
-    public BaseCheckBox(SafeHtml label, Direction dir) {
-        this();
-        setHTML(label, dir);
-    }
-
-    /**
-     * Creates a check box with the specified text label.
-     *
-     * @param label              the check box's label
-     * @param directionEstimator A DirectionEstimator object used for automatic
-     *                           direction adjustment. For convenience,
-     *                           {@link #DEFAULT_DIRECTION_ESTIMATOR} can be used.
-     */
-    public BaseCheckBox(SafeHtml label, DirectionEstimator directionEstimator) {
-        this();
-        setDirectionEstimator(directionEstimator);
-        setHTML(label.asString());
-    }
-
-    /**
-     * Creates a check box with the specified text label.
-     *
-     * @param label the check box's label
-     */
-    public BaseCheckBox(String label) {
-        this();
-        setText(label);
-    }
-
-    /**
-     * Creates a check box with the specified text label.
-     *
-     * @param label the check box's label
-     * @param dir   the text's direction. Note that {@code DEFAULT} means direction
-     *              should be inherited from the widget's parent element.
-     */
-    public BaseCheckBox(String label, Direction dir) {
-        this();
-        setText(label, dir);
-    }
-
-    /**
-     * Creates a label with the specified text and a default direction estimator.
-     *
-     * @param label              the check box's label
-     * @param directionEstimator A DirectionEstimator object used for automatic
-     *                           direction adjustment. For convenience,
-     *                           {@link #DEFAULT_DIRECTION_ESTIMATOR} can be used.
-     */
-    public BaseCheckBox(String label, DirectionEstimator directionEstimator) {
-        this();
-        setDirectionEstimator(directionEstimator);
-        setText(label);
-    }
-
-    /**
-     * Creates a check box with the specified text label.
-     *
-     * @param label  the check box's label
-     * @param asHTML <code>true</code> to treat the specified label as html
-     */
-    public BaseCheckBox(String label, boolean asHTML) {
-        this();
-        if (asHTML) {
-            setHTML(label);
-        } else {
-            setText(label);
-        }
-    }
-
-    protected BaseCheckBox(Element elem) {
-        super(elem);
-
-        inputElem = InputElement.as(DOM.createInputCheck());
-        labelElem = Document.get().createLabelElement();
+        this.inputElem = inputElem;
+        this.spanElem = Document.get().createSpanElement();
 
         getElement().appendChild(inputElem);
-        getElement().appendChild(labelElem);
+        getElement().appendChild(spanElem);
 
-        String uid = DOM.createUniqueId();
+        /*String uid = DOM.createUniqueId();
         inputElem.setPropertyString("id", uid);
-        labelElem.setHtmlFor(uid);
+        spanElem.setHtmlFor(uid);*/
 
-        directionalTextHelper = new DirectionalTextHelper(labelElem, true);
+        directionalTextHelper = new DirectionalTextHelper(spanElem, true);
 
         // Accessibility: setting tab index to be 0 by default, ensuring element
         // appears in tab sequence. FocusWidget's setElement method already
@@ -349,11 +253,11 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
     @Override
     public void setEnabled(boolean enabled) {
         inputElem.setDisabled(!enabled);
-        if (enabled) {
+        /*if (enabled) {
             removeStyleDependentName(CssName.DISABLED);
         } else {
             addStyleDependentName(CssName.DISABLED);
-        }
+        }*/
     }
 
     @Override
@@ -488,7 +392,7 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
     /**
      * <b>Affected Elements:</b>
      * <ul>
-     * <li>-label = label next to checkbox.</li>
+     * <li>- span = span next to checkbox.</li>
      * </ul>
      *
      * @see UIObject#onEnsureDebugId(String)
@@ -496,9 +400,9 @@ public class BaseCheckBox extends ButtonBase implements HasName, HasValue<Boolea
     @Override
     protected void onEnsureDebugId(String baseID) {
         super.onEnsureDebugId(baseID);
-        ensureDebugId(labelElem, baseID, "label");
+        ensureDebugId(spanElem, baseID, "span");
         ensureDebugId(inputElem, baseID, "input");
-        labelElem.setHtmlFor(inputElem.getId());
+        //spanElem.setHtmlFor(inputElem.getId());
     }
 
     /**

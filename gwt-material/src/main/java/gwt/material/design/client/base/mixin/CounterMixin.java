@@ -44,7 +44,7 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
         }
 
         if (e != null) {
-            e.setAttribute("length", String.valueOf(length));
+            e.setAttribute("data-length", String.valueOf(length));
             initialize(e);
         }
     }
@@ -52,6 +52,14 @@ public class CounterMixin<T extends UIObject & HasCounter> extends AbstractMixin
     @Override
     public int getLength() {
         return length;
+    }
+
+    public void updateCounter() {
+        if (uiObject instanceof MaterialValueBox) {
+            Element e = ((MaterialValueBox) uiObject).asValueBoxBase().getElement();
+
+            $(e).characterCounter("updateCounter");
+        }
     }
 
     /**

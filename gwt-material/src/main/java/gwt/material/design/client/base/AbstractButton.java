@@ -110,9 +110,11 @@ public abstract class AbstractButton extends MaterialWidget implements HasHref, 
 
     @Override
     public void setActivates(String activates) {
-        removeStyleName(getActivates() + " " + CssName.DROPDOWN_BUTTON);
+        //removeStyleName(getActivates() + " " + CssName.DROPDOWN_TRIGGER);
         getActivatesMixin().setActivates(activates);
-        addStyleName(activates + " " + CssName.DROPDOWN_BUTTON);
+        //addStyleName(activates + " " + CssName.DROPDOWN_TRIGGER);
+        removeStyleName(CssName.DROPDOWN_TRIGGER);
+        addStyleName(CssName.DROPDOWN_TRIGGER);
     }
 
     @Override

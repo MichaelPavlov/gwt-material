@@ -26,7 +26,8 @@ import com.google.gwt.resources.client.TextResource;
 public interface MaterialDebugResources extends ClientBundle {
     MaterialDebugResources INSTANCE = GWT.create(MaterialDebugResources.class);
 
-    @Source("js/materialize-0.97.5.js")
+    //@Source("js/materialize-0.97.5.js")
+    @Source("js/materialize-1.0.0.js")
     TextResource materializeJsDebug();
 
     @Source("js/animation.js")

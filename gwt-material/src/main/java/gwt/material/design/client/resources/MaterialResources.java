@@ -26,11 +26,12 @@ import com.google.gwt.resources.client.TextResource;
 public interface MaterialResources extends ClientBundle {
     MaterialResources INSTANCE = GWT.create(MaterialResources.class);
 
+    //@Source("js/materialize-0.97.5.js")
+    @Source("js/materialize-1.0.0.min.js")
+    TextResource materializeJs();
+
     @Source("js/animation.min.js")
     TextResource animationJs();
-
-    @Source("js/materialize-0.97.5.min.js")
-    TextResource materializeJs();
 
     @Source("js/app-installer.min.js")
     TextResource appInstallerJs();

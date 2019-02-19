@@ -19,6 +19,7 @@
  */
 package gwt.material.design.client.ui;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.i18n.client.HasDirection.Direction;
@@ -27,10 +28,13 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import gwt.material.design.client.base.BaseCheckBox;
 import gwt.material.design.client.base.HasGrid;
+import gwt.material.design.client.base.HasType;
 import gwt.material.design.client.base.mixin.GridMixin;
 import gwt.material.design.client.base.mixin.ToggleStyleMixin;
 import gwt.material.design.client.constants.CheckBoxType;
 import gwt.material.design.client.constants.CssName;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 //@formatter:off
 
@@ -56,7 +60,7 @@ import gwt.material.design.client.constants.CssName;
  * @see <a href="http://gwtmaterialdesign.github.io/gwt-material-demo/#checkbox">CheckBox</a>
  * @see <a href="https://material.io/guidelines/components/selection-controls.html#selection-controls-checkbox">Material Design Specification</a>
  */
-public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
+public class MaterialCheckBox extends BaseCheckBox implements HasType<CheckBoxType>, HasGrid {
 
     private Object object;
 
@@ -65,44 +69,110 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
 
     private CheckBoxType type;
 
+    /**
+     * Creates a check box with no label.
+     */
     public MaterialCheckBox() {
-        super();
+        super(Document.get().createCheckInputElement());
     }
 
-    public MaterialCheckBox(Element elem) {
-        super(elem);
-    }
-
+    /**
+     * Creates a check box with the specified text label.
+     *
+     * @param label the check box's label
+     * @param dir   the text's direction. Note that {@code DEFAULT} means direction
+     *              should be inherited from the widget's parent element.
+     */
     public MaterialCheckBox(SafeHtml label, Direction dir) {
-        super(label, dir);
+        this();
+
+        setHTML(label, dir);
     }
 
+    /**
+     * Creates a label with the specified text and a default direction estimator.
+     *
+     * @param label              the check box's label
+     * @param directionEstimator A DirectionEstimator object used for automatic
+     *                           direction adjustment. For convenience,
+     *                           {@link #DEFAULT_DIRECTION_ESTIMATOR} can be used.
+     */
     public MaterialCheckBox(SafeHtml label, DirectionEstimator directionEstimator) {
-        super(label, directionEstimator);
+        this();
+
+        setDirectionEstimator(directionEstimator);
+        setHTML(label.asString());
     }
 
+    /**
+     * Creates a material check box with the specified text label.
+     *
+     * @param label the check box's label
+     */
     public MaterialCheckBox(SafeHtml label) {
-        super(label);
+        this();
+
+        setHTML(label.asString());
     }
 
+    /**
+     * Creates a check box with the specified text label.
+     *
+     * @param label  the check box's label
+     * @param asHTML <code>true</code> to treat the specified label as html
+     */
     public MaterialCheckBox(String label, boolean asHTML) {
-        super(label, asHTML);
+        this();
+
+        if (asHTML) {
+            setHTML(label);
+        } else {
+            setText(label);
+        }
     }
 
+    /**
+     * Creates a check box with the specified text label.
+     *
+     * @param label the check box's label
+     * @param dir   the text's direction. Note that {@code DEFAULT} means direction
+     *              should be inherited from the widget's parent element.
+     */
     public MaterialCheckBox(String label, Direction dir) {
-        super(label, dir);
+        this();
+
+        setText(label, dir);
     }
 
+    /**
+     * Creates a label with the specified text and a default direction estimator.
+     *
+     * @param label              the check box's label
+     * @param directionEstimator A DirectionEstimator object used for automatic
+     *                           direction adjustment. For convenience,
+     *                           {@link #DEFAULT_DIRECTION_ESTIMATOR} can be used.
+     */
     public MaterialCheckBox(String label, DirectionEstimator directionEstimator) {
-        super(label, directionEstimator);
+        this();
+
+        setDirectionEstimator(directionEstimator);
+        setText(label);
     }
 
+    /**
+     * Creates a check box with the specified text label.
+     *
+     * @param label the check box's label
+     */
     public MaterialCheckBox(String label) {
-        super(label);
+        this();
+
+        setText(label);
     }
 
     public MaterialCheckBox(String label, CheckBoxType type) {
-        super(label);
+        this(label);
+        
         setType(type);
     }
 
@@ -149,11 +219,10 @@ public class MaterialCheckBox extends BaseCheckBox implements HasGrid {
         this.type = type;
         switch (type) {
             case FILLED:
-                Element input = DOM.getChild(getElement(), 0);
-                input.setAttribute("class", CssName.FILLED_IN);
+                $(inputElem).addClass(CssName.FILLED_IN);
                 break;
             case INTERMEDIATE:
-                addStyleName(type.getCssName() + "-checkbox");
+                $(inputElem).prop("indeterminate", true);
                 break;
             default:
                 addStyleName(type.getCssName());

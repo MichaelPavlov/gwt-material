@@ -25,6 +25,7 @@ package gwt.material.design.client.constants;
  * @author kebzlou7979
  */
 public interface CssName {
+    String DATA_TARGET = "data-target";
 
     String BADGE = "badge";
     String SIDEBAR_BADGE = "sideBarBadge";
@@ -55,7 +56,7 @@ public interface CssName {
     String INPUT_FIELD = "input-field";
     String DIVIDER = "divider";
     String DROPDOWN_CONTENT = "dropdown-content";
-    String DROPDOWN_BUTTON = "dropdown-button";
+    String DROPDOWN_TRIGGER = "dropdown-trigger";
     String FIXED_ACTION_BTN = "fixed-action-btn";
     String PAGE_FOOTER = "page-footer";
     String CONTAINER = "container";

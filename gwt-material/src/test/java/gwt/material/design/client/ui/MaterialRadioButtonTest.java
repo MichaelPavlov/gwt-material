@@ -34,7 +34,7 @@ public class MaterialRadioButtonTest extends WidgetTestCase<MaterialRadioButton>
 
     @Override
     protected MaterialRadioButton createWidget() {
-        return new MaterialRadioButton();
+        return new MaterialRadioButton("group1");
     }
 
     public void testValueChangeEvent() {

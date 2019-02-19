@@ -21,6 +21,7 @@ package gwt.material.design.client.base.mixin;
 
 import com.google.gwt.user.client.ui.UIObject;
 import gwt.material.design.client.base.HasActivates;
+import gwt.material.design.client.constants.CssName;
 
 /**
  * @author Ben Dol
@@ -28,7 +29,7 @@ import gwt.material.design.client.base.HasActivates;
 public class ActivatesMixin<T extends UIObject & HasActivates> extends AttributeMixin<T> implements HasActivates {
 
     public ActivatesMixin(final T widget) {
-        super(widget, "data-activates");
+        super(widget, CssName.DATA_TARGET);
     }
 
     @Override
