@@ -27,7 +27,7 @@ public interface MaterialResources extends ClientBundle {
     MaterialResources INSTANCE = GWT.create(MaterialResources.class);
 
     //@Source("js/materialize-0.97.5.js")
-    @Source("js/materialize-1.0.0.min.js")
+    @Source("js/materialize.min.js")
     TextResource materializeJs();
 
     @Source("js/animation.min.js")
